@@ -1,0 +1,35 @@
+@import 'src/constants.scss';
+
+.editTitleContainer {
+  margin-bottom: 15px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.toDoEditForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.editButtonContainer {
+  display: flex;
+  gap: 15px;
+}
+.editToDoInput {
+  padding: 5px;
+  border: 1px solid $mainGrey;
+  border-radius: 5px;
+  margin-left: 10px;
+  flex-grow: 1;
+  resize: none;
+}
+.editToDoInput:focus {
+  outline: 2px solid $mainBlue;
+}
+.toDoEditInfo {
+  margin-left: 10px;
+}
+.toDoEditLabel {
+  display: flex;
+  align-items: center;
+}

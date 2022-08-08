@@ -1,0 +1,30 @@
+@import 'src/constants.scss';
+
+.toDoItem {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.toDoTitle {
+  font-weight: 500;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.toDoDescription {
+  color: grey;
+}
+.toDoItemTextContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  line-height: 20px;
+}
+.toDoStatus {
+  color: grey;
+}

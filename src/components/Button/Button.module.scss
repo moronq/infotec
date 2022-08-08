@@ -1,0 +1,21 @@
+@import 'src/constants.scss';
+
+.button {
+  display: flex;
+  border: 1px solid $mainGrey;
+  width: fit-content;
+  padding: 5px 15px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.button:active {
+  background-color: $mainBlue;
+  color: white;
+}
+.button:focus {
+  outline: 2px solid $mainBlue;
+}
+.button:disabled {
+  background: $mainGrey;
+  color: white;
+}

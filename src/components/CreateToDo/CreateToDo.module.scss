@@ -1,0 +1,37 @@
+@import 'src/constants.scss';
+
+.createToDo {
+  margin-bottom: 15px;
+}
+.createTitleContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+.createForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+textarea {
+  min-height: 70px;
+}
+.createInput {
+  padding: 5px;
+  border: 1px solid $mainGrey;
+  border-radius: 5px;
+  margin-left: 10px;
+  flex-grow: 1;
+  resize: none;
+}
+.createInput:focus {
+  outline: 2px solid $mainBlue;
+}
+.createLabel {
+  display: flex;
+  align-items: center;
+}
+.buttonContainer {
+  display: flex;
+  justify-content: end;
+}

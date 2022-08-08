@@ -1,0 +1,23 @@
+@import 'src/null.scss';
+@import 'src/constants.scss';
+
+.App {
+  height: 100vh;
+  background-color: #e1e3e7;
+  display: flex;
+  padding: 0 15px;
+  font-size: 16px;
+}
+h3 {
+  font-weight: 400;
+  font-size: 24px;
+}
+.leftSide {
+  width: 300px;
+  padding: 15px 15px 15px 0px;
+  border-right: 2px solid grey;
+}
+.rightSide {
+  padding: 15px 0 15px 15px;
+  width: 100%;
+}

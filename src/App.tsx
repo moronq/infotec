@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import './App.css'
-import CreateToDo from './components/CreateToDo'
-import ToDoEdit from './components/ToDoEdit'
-import ToDoList from './components/ToDoList'
+import styles from './App.module.scss'
+import CreateToDo from './components/CreateToDo/CreateToDo'
+import ToDoEdit from './components/ToDoEdit/ToDoEdit'
+import ToDoList from './components/ToDoList/ToDoList'
 import { ToDoType } from './types/ToDo'
 
 function App() {
@@ -10,22 +10,23 @@ function App() {
   const [activeToDo, setActiveToDo] = useState<null | ToDoType>(null)
 
   return (
-    <main className="App">
-      <div>
+    <main className={styles.App}>
+      <div className={styles.leftSide}>
         <CreateToDo setToDoList={setToDoList} />
-        <div className="toDoListContainer">
-          <ToDoList
-            toDoList={toDoList}
-            setActiveToDo={setActiveToDo}
-            setToDoList={setToDoList}
-          />
-        </div>
+        <ToDoList
+          toDoList={toDoList}
+          setActiveToDo={setActiveToDo}
+          setToDoList={setToDoList}
+          activeToDo={activeToDo}
+        />
       </div>
-      <ToDoEdit
-        activeToDo={activeToDo}
-        setToDoList={setToDoList}
-        setActiveToDo={setActiveToDo}
-      />
+      <div className={styles.rightSide}>
+        <ToDoEdit
+          activeToDo={activeToDo}
+          setToDoList={setToDoList}
+          setActiveToDo={setActiveToDo}
+        />
+      </div>
     </main>
   )
 }

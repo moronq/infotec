@@ -1,14 +1,21 @@
 import React, { FC, useRef, useState } from 'react'
-import { ToDoType } from '../types/ToDo'
-import { generateRandomId } from '../utils/generateRandomID'
+import { ToDoType } from '../../types/ToDo'
+import { generateRandomId } from '../../utils/generateRandomID'
+import styles from './ToDoItem.module.scss'
 
 type PropsType = {
   todo: ToDoType
   setActiveToDo: (arg: ToDoType) => void
   setToDoList: React.Dispatch<React.SetStateAction<ToDoType[]>>
+  activeToDo: null | ToDoType
 }
 
-const ToDoItem: FC<PropsType> = ({ todo, setActiveToDo, setToDoList }) => {
+const ToDoItem: FC<PropsType> = ({
+  todo,
+  setActiveToDo,
+  setToDoList,
+  activeToDo,
+}) => {
   const inputEl = useRef(null)
 
   const onClick = (e: React.MouseEvent<HTMLLIElement, MouseEvent>) => {
@@ -46,7 +53,15 @@ const ToDoItem: FC<PropsType> = ({ todo, setActiveToDo, setToDoList }) => {
     }
   }
   return (
-    <li onClick={(e) => onClick(e)}>
+    <li
+      className={styles.toDoItem}
+      onClick={(e) => onClick(e)}
+      style={{
+        textDecoration: todo.status == 'done' ? 'line-through' : 'none',
+        color: todo.status == 'done' ? 'grey' : 'black',
+        background: todo.id === activeToDo?.id ? '#c5c7cb' : 'none',
+      }}
+    >
       <label>
         <input
           checked={todo.status === 'done'}
@@ -55,9 +70,11 @@ const ToDoItem: FC<PropsType> = ({ todo, setActiveToDo, setToDoList }) => {
           type="checkbox"
         />
       </label>
-      <p>title : {todo.title}</p>
-      <p>description: {todo.description}</p>
-      <p>status: {todo.status}</p>
+      <div className={styles.toDoItemTextContainer}>
+        <p className={styles.toDoTitle}>{todo.title}</p>
+        <p className={styles.toDoDescription}>{todo.description}</p>
+        <p className={styles.toDoStatus}>status: {todo.status}</p>
+      </div>
     </li>
   )
 }

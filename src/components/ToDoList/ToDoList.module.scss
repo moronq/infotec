@@ -1,0 +1,13 @@
+@import 'src/constants.scss';
+
+.listTitleContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+.toDoListContainer {
+  border: 1px solid $mainGrey;
+  overflow-y: scroll;
+  height: calc(100vh - 280px);
+  border-radius: 5px;
+}
