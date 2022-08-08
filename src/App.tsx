@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import './App.css'
+import CreateToDo from './components/CreateToDo'
+import ToDoEdit from './components/ToDoEdit'
+import ToDoList from './components/ToDoList'
+import { ToDoType } from './types/ToDo'
 
 function App() {
+  const [toDoList, setToDoList] = useState<Array<ToDoType>>([])
+  const [activeToDo, setActiveToDo] = useState<null | ToDoType>(null)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <main className="App">
+      <div>
+        <CreateToDo setToDoList={setToDoList} />
+        <div className="toDoListContainer">
+          <ToDoList
+            toDoList={toDoList}
+            setActiveToDo={setActiveToDo}
+            setToDoList={setToDoList}
+          />
+        </div>
+      </div>
+      <ToDoEdit
+        activeToDo={activeToDo}
+        setToDoList={setToDoList}
+        setActiveToDo={setActiveToDo}
+      />
+    </main>
+  )
 }
 
-export default App;
+export default App
