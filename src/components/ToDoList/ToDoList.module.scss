@@ -8,6 +8,23 @@
 .toDoListContainer {
   border: 1px solid $mainGrey;
   overflow-y: scroll;
-  height: calc(100vh - 280px);
+  height: calc(100vh - 320px);
   border-radius: 5px;
+}
+
+.toDoSearchInput {
+  padding: 5px;
+  border: 1px solid $mainGrey;
+  border-radius: 5px;
+  margin-left: 10px;
+  flex-grow: 1;
+  resize: none;
+}
+.toDoSearchInput:focus {
+  outline: 2px solid $mainBlue;
+}
+.toDoSearchLabel {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }

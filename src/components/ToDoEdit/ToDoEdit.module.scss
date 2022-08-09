@@ -1,5 +1,9 @@
 @import 'src/constants.scss';
 
+.section {
+  width: 100%;
+}
+
 .editTitleContainer {
   margin-bottom: 15px;
   display: flex;
@@ -10,12 +14,15 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  max-width: 100%;
 }
 .editButtonContainer {
+  padding: 5px 0;
   display: flex;
   gap: 15px;
 }
 .editToDoInput {
+  font-size: inherit;
   padding: 5px;
   border: 1px solid $mainGrey;
   border-radius: 5px;
@@ -28,8 +35,16 @@
 }
 .toDoEditInfo {
   margin-left: 10px;
+  white-space: wrap;
+  line-height: 24px;
+  width: 100%;
+  max-height: auto;
+  flex-shrink: 1;
 }
 .toDoEditLabel {
   display: flex;
   align-items: center;
+  max-width: 100%;
+  padding: 5px 5px 5px 0;
+  max-height: auto;
 }

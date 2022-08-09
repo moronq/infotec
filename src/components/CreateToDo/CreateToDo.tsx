@@ -59,7 +59,9 @@ const CreateToDo: FC<PropsType> = ({ setToDoList }) => {
           />
         </label>
         <div className={styles.buttonContainer}>
-          <Button type="submit">Create ToDo</Button>
+          <Button disabled={title.length === 0} type="submit">
+            Create ToDo
+          </Button>
         </div>
       </form>
     </section>

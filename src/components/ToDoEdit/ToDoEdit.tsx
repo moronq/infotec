@@ -94,7 +94,7 @@ const ToDoEdit: FC<PropsType> = ({
   }
 
   return (
-    <section>
+    <section className={styles.section}>
       <div className={styles.editTitleContainer}>
         <h3>Edit To Do</h3>
       </div>
@@ -137,6 +137,7 @@ const ToDoEdit: FC<PropsType> = ({
               Status:
               {editMode ? (
                 <select
+                  className={styles.editToDoInput}
                   onChange={(e) => onChangeStatus(e)}
                   defaultValue={activeToDo.status}
                 >

@@ -5,9 +5,15 @@ type PropsType = {
   children: string
   type?: 'button' | 'submit' | 'reset' | undefined
   callBack?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
+  disabled?: boolean
 }
 
-const Button: FC<PropsType> = ({ children, type = 'button', callBack }) => {
+const Button: FC<PropsType> = ({
+  children,
+  type = 'button',
+  callBack,
+  disabled = false,
+}) => {
   const onClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     if (callBack) {
       callBack(e)
@@ -15,7 +21,12 @@ const Button: FC<PropsType> = ({ children, type = 'button', callBack }) => {
   }
 
   return (
-    <button onClick={(e) => onClick(e)} className={styles.button} type={type}>
+    <button
+      disabled={disabled}
+      onClick={(e) => onClick(e)}
+      className={styles.button}
+      type={type}
+    >
       {children}
     </button>
   )
