@@ -1,12 +1,13 @@
 import React, { FC, useRef } from 'react'
-import { ToDoType } from '../../types/ToDo'
+import { StatusType, ToDoType } from '../../types/ToDo'
+import { createCommonToDo } from '../../utils/createCommonToDo'
 import { generateRandomId } from '../../utils/generateRandomID'
 import styles from './ToDoItem.module.scss'
 
 type PropsType = {
   todo: ToDoType
   setActiveToDo: React.Dispatch<React.SetStateAction<ToDoType | null>>
-  setToDoList: React.Dispatch<React.SetStateAction<ToDoType[]>>
+  setToDoList: React.Dispatch<React.SetStateAction<Array<ToDoType>>>
   activeToDo: null | ToDoType
 }
 
@@ -35,31 +36,27 @@ const ToDoItem: FC<PropsType> = ({
     setToDoList((prevState) => prevState.filter((el) => el !== todo))
   }
 
+  const getNewToDoList = (
+    prevState: Array<ToDoType>,
+    todo: ToDoType,
+    status: StatusType
+  ) => {
+    return [
+      ...prevState.filter((el) => el.id !== todo.id),
+      createCommonToDo(
+        generateRandomId(),
+        todo.title,
+        todo.description,
+        status
+      ),
+    ]
+  }
+
   const onInputClick = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.currentTarget.checked) {
-      setToDoList((prevState) => {
-        return [
-          ...prevState.filter((el) => el.id !== todo.id),
-          {
-            id: generateRandomId(),
-            description: todo.description,
-            title: todo.title,
-            status: 'done',
-          } as ToDoType,
-        ]
-      })
+      setToDoList((prevState) => getNewToDoList(prevState, todo, 'done'))
     } else {
-      setToDoList((prevState) => {
-        return [
-          {
-            id: generateRandomId(),
-            description: todo.description,
-            title: todo.title,
-            status: 'waiting',
-          } as ToDoType,
-          ...prevState.filter((el) => el.id !== todo.id),
-        ]
-      })
+      setToDoList((prevState) => getNewToDoList(prevState, todo, 'waiting'))
     }
   }
   return (
@@ -76,8 +73,6 @@ const ToDoItem: FC<PropsType> = ({
             ? '#afc9bb'
             : todo.status === 'current'
             ? '#afb8c9'
-            : todo.status === 'waiting'
-            ? 'none'
             : 'none',
       }}
     >

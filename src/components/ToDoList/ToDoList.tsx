@@ -6,7 +6,7 @@ import styles from './ToDoList.module.scss'
 type PropsType = {
   toDoList: Array<ToDoType>
   setActiveToDo: React.Dispatch<React.SetStateAction<ToDoType | null>>
-  setToDoList: React.Dispatch<React.SetStateAction<ToDoType[]>>
+  setToDoList: React.Dispatch<React.SetStateAction<Array<ToDoType>>>
   activeToDo: null | ToDoType
 }
 
@@ -16,15 +16,12 @@ const ToDoList: FC<PropsType> = ({
   setToDoList,
   activeToDo,
 }) => {
-  useEffect(() => {
-    setActiveToDo(null)
-  }, [toDoList])
-
   const [filteredToDo, setFilteredToDo] = useState<Array<ToDoType>>(toDoList)
   const [search, setSearch] = useState('')
   const [searchToDo, setSearchToDo] = useState<Array<ToDoType>>(filteredToDo)
 
   useEffect(() => {
+    setActiveToDo(null)
     setFilteredToDo([
       ...toDoList.filter((el) => el.status === 'current'),
       ...toDoList.filter((el) => el.status === 'waiting'),

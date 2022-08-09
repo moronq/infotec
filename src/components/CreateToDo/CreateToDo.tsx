@@ -1,10 +1,12 @@
 import React, { FC, useState } from 'react'
+import { ToDoType } from '../../types/ToDo'
+import { createCommonToDo } from '../../utils/createCommonToDo'
 import { generateRandomId } from '../../utils/generateRandomID'
 import Button from '../Button/Button'
 import styles from './CreateToDo.module.scss'
 
 type PropsType = {
-  setToDoList: any
+  setToDoList: React.Dispatch<React.SetStateAction<ToDoType[]>>
 }
 
 const CreateToDo: FC<PropsType> = ({ setToDoList }) => {
@@ -13,13 +15,8 @@ const CreateToDo: FC<PropsType> = ({ setToDoList }) => {
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setToDoList((prevState: any) => [
-      {
-        id: generateRandomId(),
-        title: title,
-        description: description,
-        status: 'waiting',
-      },
+    setToDoList((prevState: Array<ToDoType>) => [
+      createCommonToDo(generateRandomId(), title, description, 'waiting'),
       ...prevState,
     ])
     setTitle('')

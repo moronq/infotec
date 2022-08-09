@@ -1,5 +1,6 @@
-import React, { FC, SetStateAction, useEffect, useState } from 'react'
-import { ToDoType } from '../../types/ToDo'
+import React, { FC, useEffect, useState } from 'react'
+import { StatusType, ToDoType } from '../../types/ToDo'
+import { createCommonToDo } from '../../utils/createCommonToDo'
 import { generateRandomId } from '../../utils/generateRandomID'
 import Button from '../Button/Button'
 import styles from './ToDoEdit.module.scss'
@@ -18,7 +19,7 @@ const ToDoEdit: FC<PropsType> = ({
   const [editMode, setEditMode] = useState(false)
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [status, setStatus] = useState('')
+  const [status, setStatus] = useState<StatusType>('' as StatusType)
 
   useEffect(() => {
     if (activeToDo) {
@@ -29,15 +30,21 @@ const ToDoEdit: FC<PropsType> = ({
     }
   }, [activeToDo])
 
-  const onEditClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const onCancelEditAction = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+    arg: boolean
+  ) => {
     e.preventDefault()
-    setEditMode(true)
+    setEditMode(arg)
+  }
+
+  const onEditClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    onCancelEditAction(e, true)
   }
   const onCancelClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    e.preventDefault()
-    setEditMode(false)
+    onCancelEditAction(e, false)
   }
   const onDeleteClick = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -53,19 +60,14 @@ const ToDoEdit: FC<PropsType> = ({
     setDescription(e.target.value)
   }
   const onChangeStatus = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setStatus(e.target.value)
+    setStatus(e.target.value as StatusType)
   }
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (activeToDo) {
       setToDoList((prevState) => {
         return [
-          {
-            id: activeToDo.id,
-            status: status,
-            description: description,
-            title: title,
-          } as ToDoType,
+          createCommonToDo(activeToDo.id, title, description, status),
           ...prevState.filter((el) => el !== activeToDo),
         ]
       })
@@ -81,12 +83,12 @@ const ToDoEdit: FC<PropsType> = ({
         setToDoList((prevState) => {
           return [
             ...prevState.filter((el) => el.id !== activeToDo.id),
-            {
-              id: generateRandomId(),
-              description: activeToDo.description,
-              title: activeToDo.title,
-              status: 'done',
-            } as ToDoType,
+            createCommonToDo(
+              generateRandomId(),
+              activeToDo.title,
+              activeToDo.description,
+              'done'
+            ),
           ]
         })
       }
@@ -153,7 +155,9 @@ const ToDoEdit: FC<PropsType> = ({
 
           {editMode ? (
             <div className={styles.editButtonContainer}>
-              <Button type="submit">Save</Button>
+              <Button disabled={title.length === 0} type="submit">
+                Save
+              </Button>
               <Button callBack={onCancelClick}>Cancel</Button>
             </div>
           ) : (
